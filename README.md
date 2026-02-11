@@ -38,19 +38,6 @@ python manage.py runserver 0.0.0.0:8000
 
 ---
 
-
-## URLs to test on local laptop
-
-After running `python manage.py runserver 0.0.0.0:8000`, open:
-
-- `http://127.0.0.1:8000/login/` (login page)
-- `http://127.0.0.1:8000/` (portal dashboard, login required)
-- `http://127.0.0.1:8000/admin/` (admin)
-
-If you still see only `admin/` in the Django 404 debug page, confirm `config/urls.py` includes `path("", include("core.urls"))` and restart the server.
-
----
-
 ## Database mode
 
 By default, settings use SQLite for local development.
