@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="text-center">Partner Portal Login</h3>
+                <p class="text-muted text-center">Partner users are scoped to their tenant. Internal MS/dev users have full access.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
