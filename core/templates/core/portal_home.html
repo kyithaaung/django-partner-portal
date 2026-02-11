@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Portal Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Inventory Dashboard</h2>
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card"><div class="card-body">
+            <h5>Add Item</h5>
+            <form method="post" action="{% url 'create-item' %}">
+                {% csrf_token %}
+                {{ item_form.as_p }}
+                <button class="btn btn-primary">Create Item</button>
+            </form>
+        </div></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card"><div class="card-body">
+            <h5>Add Warehouse</h5>
+            <form method="post" action="{% url 'create-warehouse' %}">
+                {% csrf_token %}
+                {{ warehouse_form.as_p }}
+                <button class="btn btn-primary">Create Warehouse</button>
+            </form>
+        </div></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card"><div class="card-body">
+            <h5>Create STO</h5>
+            <form method="post" action="{% url 'create-sto' %}">
+                {% csrf_token %}
+                {{ sto_form.as_p }}
+                <button class="btn btn-primary">Transfer</button>
+            </form>
+        </div></div>
+    </div>
+</div>
+
+<hr class="my-4">
+<h4>Items</h4>
+<table class="table table-striped">
+    <thead><tr><th>Partner</th><th>SKU</th><th>Name</th><th>Actions</th></tr></thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.partner.name }}</td>
+            <td>{{ item.sku }}</td>
+            <td>{{ item.name }}</td>
+            <td><a href="{% url 'item-query' item.id %}" class="btn btn-sm btn-outline-secondary">Stock Query</a></td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4" class="text-muted">No items yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h4>Warehouses</h4>
+<table class="table table-striped">
+    <thead><tr><th>Partner</th><th>Name</th><th>Location</th></tr></thead>
+    <tbody>
+    {% for warehouse in warehouses %}
+        <tr><td>{{ warehouse.partner.name }}</td><td>{{ warehouse.name }}</td><td>{{ warehouse.location }}</td></tr>
+    {% empty %}
+        <tr><td colspan="3" class="text-muted">No warehouses yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

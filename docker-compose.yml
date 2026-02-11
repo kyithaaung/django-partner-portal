@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.example
+    depends_on:
+      - mysql_internal
+      - mysql_partner
+
+  mysql_internal:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: internal_portal
+      MYSQL_USER: internal_user
+      MYSQL_PASSWORD: internal_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_internal_data:/var/lib/mysql
+
+  mysql_partner:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: partner_portal
+      MYSQL_USER: partner_user
+      MYSQL_PASSWORD: partner_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_partner_data:/var/lib/mysql
+
+volumes:
+  mysql_internal_data:
+  mysql_partner_data:
