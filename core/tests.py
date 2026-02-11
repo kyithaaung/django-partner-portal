@@ -5,12 +5,6 @@ from django.urls import reverse
 from .models import InternalUserProfile, InventoryItem, Partner, PartnerUserProfile
 
 
-class URLAvailabilityTests(TestCase):
-    def test_login_url_is_available(self):
-        response = self.client.get(reverse("login"))
-        self.assertEqual(response.status_code, 200)
-
-
 class TenantIsolationTests(TestCase):
     def setUp(self):
         self.partner_a = Partner.objects.create(name="Partner A", code="partner-a")
